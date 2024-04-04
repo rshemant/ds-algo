@@ -59,4 +59,37 @@ public class Main {
         
         return max +1; // +1 to get actual length because java pointers are strting from 0 to length-1
     }
+
+
+    // array version
+    public static int lengthOfLongestSubstringTwoDistinct(String s, int k){
+        // ebead
+        // 01234
+        int[] count = new int[256];  // there are 256 ASCII characters in the world
+        int dist = 0;
+        int i = 0; // first pointer
+        int max = 0;
+        
+        for(int j = 0; j < s.length(); j++){ // second pointer
+            char c2 = s.charAt(j);
+            
+            if(count[c2] == 0)
+                dist ++;
+                
+            count[c2] ++;
+            
+            while(dist > k){
+                char c1 = s.charAt(i);
+                count[c1] --;
+                
+                if(count[c1] == 0)
+                    dist --;
+                
+                i ++;
+            }
+            
+            max = Math.max(max, j - i + 1);
+        }
+        return max;
+    }
 }
