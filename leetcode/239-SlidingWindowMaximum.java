@@ -40,4 +40,46 @@ class Solution {
 
         return list.stream().mapToInt(v -> v).toArray();
     }
+
+    
+    public int[] maxSlidingWindow2Part(int[] nums, int k) {
+    
+        ArrayList<Integer> list = new ArrayList();
+        Deque<Integer> dq = new ArrayDeque();
+
+        // first window 
+        int i = 0;
+        while(i < k){
+            if(dq.size() == 0){
+                dq.addLast(i);
+                i ++;
+                continue;
+            }
+
+            while (dq.size() > 0 && nums[dq.peekLast()] < nums[i])
+                dq.removeLast();
+
+            dq.addLast(i);
+            i ++;
+        }
+        list.add(nums[dq.peekFirst()]);
+
+        // rest of the windows
+        while(i < nums.length){
+
+            if (dq.size() > 0 && dq.peekFirst() <= i - k) // out of k window
+                dq.removeFirst();
+
+            while (dq.size() > 0 && nums[dq.peekLast()] < nums[i])
+                dq.removeLast();
+
+            dq.addLast(i);
+            i++;
+
+            list.add(nums[dq.peekFirst()]);
+        }
+
+        return list.stream().mapToInt(v -> v).toArray();
+    }
+
 }
