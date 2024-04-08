@@ -34,11 +34,18 @@ class Solution {
     private int search(int[] nums, int start, int end) {
         int mid = start + (end - start)/2;
 
-        if(nums.length == 1)
-            return nums[0];
+        // if(nums.length == 1)
+        //     return nums[0];
 
-        if(nums.length == 2)
-            return nums[0] == nums[1] ? -1 : nums[0];
+        // if(nums.length == 2)
+        //     return nums[0] == nums[1] ? -1 : nums[0];
+
+        // int prev = mid-1 >= 0 ? nums[mid-1] : -1;
+        // int next = mid+1 <= nums.length-1 ? nums[mid+1] : -1;
+        
+        // if(nums[mid] != prev && nums[mid] != next)
+        //     return nums[mid];
+
         
         // mid +1 & -1 should not be same --> mid is ans
         if((mid-1 < 0 || nums[mid-1] != nums[mid]) 
