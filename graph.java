@@ -40,17 +40,17 @@ public class Main {
         }
         
         // dfs
+        // bfs
         for(Map.Entry<Integer, List<Integer>> entry : graph.entrySet()){
             int key = entry.getKey();
             if(visited.contains(key))
                 continue;
-            dfs(graph, key);
+            bfs(graph, key);
         }
         
         for(Integer value: visited){
             System.out.print(value + "  ");
         }
-        // bfs
     }
     
     public static Map<Integer, List<Integer>> createGraph(List<Edge> edges, int size){
@@ -93,5 +93,29 @@ public class Main {
         for(Integer vertex: list){
             dfs(graph, vertex);
         }
+    }
+    
+    public static void bfs(Map<Integer, List<Integer>> graph, int src){
+        
+        Queue<Integer> queue = new ArrayDeque<Integer>();
+        queue.add(src);
+        
+        while(!queue.isEmpty()){
+            Integer startVertex = queue.poll();
+            if(visited.contains(startVertex))
+                continue;
+            
+            visited.add(startVertex);
+            
+            List<Integer> adjVertices = graph.get(startVertex);
+            
+            for(Integer vertex: adjVertices){
+                if(visited.contains(vertex))
+                    continue;
+                
+                queue.add(vertex);
+            }
+        }
+        
     }
 }
