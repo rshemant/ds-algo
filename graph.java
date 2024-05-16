@@ -103,7 +103,10 @@ public class Main {
         while(!queue.isEmpty()){
             Integer startVertex = queue.poll();
             if(visited.contains(startVertex))
-                continue;
+                continue; 
+	    // this is imp, otherwise result will be repeatative like below, as therw will be duplicate entry in the queue (valid case). So, when we read we need to eleminate duplicates.	
+	    // 1  2  4  3  4  3  17  17  5  7  9  12  6  6  13  8  8  10  11  14  15  16  
+	    // 1  2  4  3  17  5  7  9  12  6  13  8  10  11  14  15  16
             
             visited.add(startVertex);
             
