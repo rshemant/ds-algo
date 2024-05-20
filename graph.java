@@ -137,9 +137,11 @@ public class Main {
         }
         
     }
-    // 1  2  4  3  4  3  17  17  5  7  9  12  6  6  13  8  8  10  11  14  15  16  
-    // 1  2  4  3  17  5  7  9  12  6  13  8  10  11  14  15  16
     
+    // imp point to learn
+    // - consider visited item
+    // - consider returning ditance vs breaking loop option.
+    // conclusion: dry run is very important
     public static int findMinDist(int m, int n, int[] src, int[] dest, Set<int[]> obstacles) { 
         Queue<int[]> queue = new ArrayDeque();
         List<int[]> visited = new ArrayList();
@@ -185,3 +187,5 @@ public class Main {
     }
 }
 
+// 1  2  4  3  4  3  17  17  5  7  9  12  6  6  13  8  8  10  11  14  15  16  
+// 1  2  4  3  17  5  7  9  12  6  13  8  10  11  14  15  16
