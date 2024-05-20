@@ -51,7 +51,26 @@ public class Main {
         for(Integer value: visited){
             System.out.print(value + "  ");
         }
+        System.out.println();
+        
+        
+        Set<int[]> obstacles = new HashSet<>();
+
+        int[] array1 = {2, 2};
+        int[] array2 = {3, 2};
+        int[] array3 = {4, 1};
+
+        obstacles.add(array1);
+        obstacles.add(array2);
+        obstacles.add(array3);
+        
+        System.out.print("hi");
+        
+        int minDistance = findMinDist(5,5,new int[]{0,1}, new int[]{4,3}, obstacles);
+        System.out.println("ans  --  " + minDistance);
+        
     }
+    
     
     public static Map<Integer, List<Integer>> createGraph(List<Edge> edges, int size){
         Map<Integer, List<Integer>> graph = new HashMap();
@@ -103,10 +122,7 @@ public class Main {
         while(!queue.isEmpty()){
             Integer startVertex = queue.poll();
             if(visited.contains(startVertex))
-                continue; 
-	    // this is imp, otherwise result will be repeatative like below, as therw will be duplicate entry in the queue (valid case). So, when we read we need to eleminate duplicates.	
-	    // 1  2  4  3  4  3  17  17  5  7  9  12  6  6  13  8  8  10  11  14  15  16  
-	    // 1  2  4  3  17  5  7  9  12  6  13  8  10  11  14  15  16
+                continue;
             
             visited.add(startVertex);
             
@@ -121,4 +137,51 @@ public class Main {
         }
         
     }
+    // 1  2  4  3  4  3  17  17  5  7  9  12  6  6  13  8  8  10  11  14  15  16  
+    // 1  2  4  3  17  5  7  9  12  6  13  8  10  11  14  15  16
+    
+    public static int findMinDist(int m, int n, int[] src, int[] dest, Set<int[]> obstacles) { 
+        Queue<int[]> queue = new ArrayDeque();
+        List<int[]> visited = new ArrayList();
+        queue.add(new int[]{src[0], src[1], 0});
+        visited.add(new int[]{src[0], src[1]});
+        
+        int[][] directions = {{1,0},{0,1},{-1,0},{0,-1}};
+        int minDistance = -1;
+                
+        while(!queue.isEmpty()){
+            
+            int[] point = queue.poll();
+            System.out.println("hi "  + point[0] +" "+point[1]+" "+point[2]);
+            
+            // distance found here
+            minDistance = point[2];
+            for(int[] direction: directions){
+                int[] newPoint = {point[0] + direction[0], point[1] + direction[1], point[2] + 1};
+                // visited? --> continue
+                if(visited.contains(new int[]{newPoint[0], newPoint[1]}))
+                    continue;
+                   
+                // point is out of grid limit --> continue
+                if(newPoint[0] < 0 || newPoint[0] == m || newPoint[1] < 0 || newPoint[1] == n)
+                    continue;
+                
+                // contains in obstacles? --> continue
+                if(obstacles.contains(new int[]{newPoint[0], newPoint[1]}))
+                    continue;
+                
+                // found --> break
+                if(dest[0] == newPoint[0] && dest[1] == newPoint[1])
+                    // break; // problem: it will just exit current for loop but not outer while loop, due to which it will keep on pulling and adding items in 
+                    return minDistance;
+                   
+                // add to queue
+                queue.add(newPoint);
+                visited.add(new int[]{newPoint[0], newPoint[1]});
+            }
+        }
+        
+        return minDistance;
+    }
 }
+
