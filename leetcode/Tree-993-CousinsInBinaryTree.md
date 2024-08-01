@@ -1,4 +1,4 @@
-#993. Cousins in Binary Tree
+# 993. Cousins in Binary Tree
 Easy
 
 Given the root of a binary tree with unique values and the values of two different nodes of the tree x and y, return true if the nodes corresponding to the values x and y in the tree are cousins, or false otherwise.
